@@ -12,7 +12,7 @@ const port = process.env.PORT
 
 const MongoClient = require('mongodb').MongoClient;
 (async () => {
-    const client = await MongoClient.connect(`mongodb://${process.env.MONGO_HOST}:${process.env.MONGO_PORT}`)
+    const client = await MongoClient.connect(`mongodb://${process.env.MONGO_HOST}:${process.env.MONGO_PORT}`, {useUnifiedTopology: true})
     app.db = client.db(process.env.MONGO_DB)
 })()
 
