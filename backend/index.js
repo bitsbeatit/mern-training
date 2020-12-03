@@ -21,8 +21,6 @@ app.get('/get-record', (req, res) => {
     const data = app.db.collection('posts').find({}).toArray(function (err, docs) {
         res.send(docs)
     })
-
-
 })
 
 app.post('/save-record', (req, res) => {
