@@ -1,6 +1,7 @@
 "use strict";
 
 const uuidv4 = require('uuid').v4;
+const validationHelper = require('./validation');
 
 const getRecords = (req, res) => {
     console.log('getting data');
@@ -50,6 +51,15 @@ const getRecordByPostId = (req, res) => {
 }
 
 const saveRecord = (req, res) => {
+    const { valid, message } = validationHelper.validatePost(req);
+
+    if (!valid) {
+        return res.status(400).json({
+            error: true,
+            message
+        });
+    }
+
     req.db.collection('posts').insertOne({
         post_id: uuidv4(),
         name: req.body.name,
