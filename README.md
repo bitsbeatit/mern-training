@@ -7,9 +7,9 @@ Mern Training conducted by BitsBeat IT Solution Pvt Ltd for Nepal Army Engineers
 - Introduction to Node.js / NPM / Express Framework
 - Introduction to MongoDB / .env Config
 - Http status code / GET, POST, PUT, PATCH / Express-router / Response handler and request handle / Validation handler (joi)
-- Middleware Introduction - Validation / Callback Introduction / Promise, async and await
-- Authentication and authorization / Jwt token and bycrypt
-- Mongodb Queries
+- Middleware Introduction - Validation 
+- Callback Introduction / Promise, async and await / Jwt token and bcrypt
+- Authentication and authorization / Mongodb Queries
 - Logging / Error Handling / Debugging
 - Questionnare Session - Interactive session 
 
