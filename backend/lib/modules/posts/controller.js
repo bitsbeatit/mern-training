@@ -4,8 +4,10 @@ const uuidv4 = require('uuid').v4;
 const { createPost } = require('./validation');
 const validate = require('../../validation');
 
-const getRecords = (req, res) => {
+const getRecords = (req, res, next) => {
     console.log('getting data');
+    try {
+    const dataObj = ab;
     req.db.collection('posts').find({
         deleted: false
     }).toArray((err, docs) => {
@@ -22,6 +24,9 @@ const getRecords = (req, res) => {
             data: docs
         });
     });
+} catch(err) {
+    next(err)
+}
 };
 
 const getRecordByPostId = (req, res) => {
