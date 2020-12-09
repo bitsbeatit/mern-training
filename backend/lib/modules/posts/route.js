@@ -7,6 +7,12 @@ const helperFunct = {
     myLogger: (req, res, next) => {
         console.log('LOGGED')
         next();
+        // res.status(500);
+        // res.json({
+        //   error:{
+        //     message: "You have an error"
+        //   }
+        // });
         
     }
       
