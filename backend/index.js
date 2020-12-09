@@ -1,15 +1,22 @@
 require('dotenv').config(/*{path:path.resolve(process.cwd(), '.env')}*/)
-const express = require('express')
-const bodyParser = require('body-parser')
+const express = require('express');
+const bodyParser = require('body-parser');
+const morganLogger = require('morgan');
 const app = express();
 const router = require('./lib/routes');
+
+// const cors = require('cors');
+// app.use(cors());
+// app.options('*', cors());
+
+app.use(morganLogger('dev'));
 
 //middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 //port fetched from .env
-const port = process.env.PORT
+const port = process.env.PORT || 8090
 
 const MongoClient = require('mongodb').MongoClient;
 (async () => {
@@ -24,42 +31,25 @@ app.use((req, res, next) => {
 
     next();
 });
-// app.get('/get-record', (req, res) => {
-//     console.log('getting data')
-//     const data = app.db.collection('posts').find({}).toArray(function (err, docs) {
-//         res.send(docs)
-//     })
-// })
-//
-// app.post('/save-record', (req, res) => {
-//     console.log('saving data', req.body)
-//     const record = app.db.collection('posts').insertMany([{
-//         name: req.body.name,
-//         roll: req.body.roll
-//     }], function (err, result) {
-//         res.send('saved data')
-//     })
-//
-// })
-//
-// app.post('/delete-record', (req, res) => {
-//     console.log('deleting data', req.body)
-//     const record = app.db.collection('posts').deleteOne({
-//         roll: req.body.roll
-//     }, function (err, result) {
-//         res.send('deleted data')
-//     })
-// })
-//
-// app.post('/update-record', (req, res) => {
-//     console.log('updating data', req.body)
-//     const record = app.db.collection('posts').updateMany({roll: req.body.roll}
-//         , {$set: {name: req.body.name}}, function (err, result) {
-//             res.send('record updated')
-//         });
-// })
 
 router.init(app);
+
+//route not found error handler
+app.use((req, res, next) => {
+    const error = new Error('Not Found');
+    error.status = 404;
+    next(error);
+  });
+  
+  //global error handler thrown in next
+  app.use((error, req, res, next) => {
+    res.status(error.status || 500);
+    res.json({
+      error:{
+        message: error.message
+      }
+    });
+})
 
 app.listen(port, () => {
     console.log(`mern training backend app running at http://localhost:${port}`)
