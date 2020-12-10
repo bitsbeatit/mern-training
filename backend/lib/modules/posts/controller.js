@@ -44,14 +44,14 @@ const getRecordByPostId = (req, res, next) => {
 
 const saveRecord = async (req, res, next) => {
     try {
-        const { valid, message } = validate(req, createPost);
-
-        if (!valid) {
-            return res.status(400).json({
-                error: true,
-                message
-            });
-        }
+        // const { valid, message } = validate(req, createPost);
+        //
+        // if (!valid) {
+        //     return res.status(400).json({
+        //         error: true,
+        //         message
+        //     });
+        // }
 
         const saveRes = await postHelper.savePost(req.db, req.body);
 
