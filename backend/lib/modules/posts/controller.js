@@ -2,89 +2,73 @@
 
 const uuidv4 = require('uuid').v4;
 const { createPost } = require('./validation');
+const postHelper = require('./helpers/post.helper');
 const validate = require('../../validation');
 
 const getRecords = (req, res, next) => {
-    console.log('getting data');
     try {
-    const dataObj = ab;
-    req.db.collection('posts').find({
-        deleted: false
-    }).toArray((err, docs) => {
-        if (err) {
-            console.log('Error while getting posts table records => ', err);
-            return res.status(500).json({
-                error: true,
-                message: 'Something went wrong'
-            });
-        }
-
-        return res.status(200).json({
-            success: true,
-            data: docs
-        });
-    });
-} catch(err) {
-    next(err)
-}
-};
-
-const getRecordByPostId = (req, res) => {
-    console.log('getting data by post id');
-    req.db.collection('posts').findOne({
-        post_id: req.params.post_id
-    }, (err, data) => {
-        if (err) {
-            console.log('Error while getting posts table record by post id => ', err);
-            return res.status(500).json({
-                error: true,
-                message: 'Something went wrong'
-            });
-        }
-
-        if (data) {
-            return res.status(200).json({
+        // callback example
+        const callback = (statusCode, data) => {
+            res.status(200).json({
                 success: true,
                 data
             });
         }
 
-        return res.status(404).json({
-            error: true,
-            message: 'Post Record Not Found'
+        return postHelper.getPostsList(req.db, callback);
+    } catch(err) {
+        return next(err);
+    }
+};
+
+const getRecordByPostId = (req, res, next) => {
+    // promise example
+    postHelper.getPostById(req.db, req.params.post_id)
+        .then((postInfo) => {
+            if (!postInfo) {
+                return res.status(404).json({
+                    error: true,
+                    message: 'Post Record Not Found'
+                });
+            }
+
+            return res.status(200).json({
+                success: true,
+                data: postInfo
+            });
         })
-    });
+        .catch((err) => {
+            return next(err);
+        });
 }
 
-const saveRecord = (req, res) => {
-    const { valid, message } = validate(req, createPost);
+const saveRecord = async (req, res, next) => {
+    try {
+        // const { valid, message } = validate(req, createPost);
+        //
+        // if (!valid) {
+        //     return res.status(400).json({
+        //         error: true,
+        //         message
+        //     });
+        // }
 
-    if (!valid) {
-        return res.status(400).json({
-            error: true,
-            message
-        });
-    }
+        const saveRes = await postHelper.savePost(req.db, req.body);
 
-    req.db.collection('posts').insertOne({
-        post_id: uuidv4(),
-        name: req.body.name,
-        roll: req.body.roll,
-        deleted: false
-    }, (err, result) => {
-        if (err) {
-            console.log('Error while adding posts table record => ', err);
-            return res.status(500).json({
-                error: true,
-                message: 'Something went wrong'
+        if (saveRes && saveRes.result && (saveRes.result.n > 0)) {
+            return res.status(200).json({
+                success: true,
+                message: 'Successfully added posts record'
             });
         }
 
-        return res.status(200).json({
-            success: true,
-            message: 'Successfully added posts record'
+        return res.status(500).json({
+            error: true,
+            message: 'Failed while adding post record'
         });
-    });
+    } catch(err) {
+        return next(err);
+    }
 };
 
 const deleteRecord = (req, res) => {

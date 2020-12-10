@@ -3,6 +3,8 @@
 const express = require('express');
 const postRouter = express.Router();
 const postController = require('./controller');
+const postValidation = require('./validation');
+const validate = require('../../validation');
 const helperFunct = {
     myLogger: (req, res, next) => {
         console.log('LOGGED')
@@ -19,7 +21,7 @@ const helperFunct = {
 }
 postRouter.get('/', helperFunct.myLogger, postController.getRecords);
 postRouter.get('/:post_id', postController.getRecordByPostId);
-postRouter.post('/', postController.saveRecord);
+postRouter.post('/', validate(postValidation.createPost), postController.saveRecord);
 postRouter.delete('/:post_id', postController.deleteRecord);
 postRouter.put('/:post_id', postController.updateRecord);
 postRouter.patch('/delete/:post_id', postController.patchRecord);
