@@ -1,4 +1,5 @@
-require('dotenv').config(/*{path:path.resolve(process.cwd(), '.env')}*/)
+const path = require('path');
+require('dotenv').config({path: path.join(__dirname, './.env')})
 const express = require('express');
 const bodyParser = require('body-parser');
 const morganLogger = require('morgan');
@@ -20,7 +21,9 @@ const port = process.env.PORT || 8090
 
 const MongoClient = require('mongodb').MongoClient;
 (async () => {
+    //const client = await MongoClient.connect(`mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}:${process.env.MONGO_PORT}/${process.env.MONGO_DB}?authSource=admin`)
     const client = await MongoClient.connect(`mongodb://${process.env.MONGO_HOST}:${process.env.MONGO_PORT}`, {useUnifiedTopology: true})
+
     app.db = client.db(process.env.MONGO_DB);
 })();
 
