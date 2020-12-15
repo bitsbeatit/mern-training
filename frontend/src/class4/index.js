@@ -1,7 +1,8 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import request from '../services/request';
+import HooksExample from "./lifecycleHookExample";
 
-export default function FetchApiExample(){
+export default function FetchApiExample(props){
     const [state,setState] = useState({});
     const [postList,setPostList] = useState([]);
     const [showSuccessMessage,setShowSuccessMessage] = useState(false);
@@ -108,6 +109,7 @@ export default function FetchApiExample(){
             <button onClick={(e)=>selectPost(e,each)}>Select</button>
         </li>)}
         </ul>
+        <HooksExample name={state.title} address="test" />
     </div>)
 }
 
