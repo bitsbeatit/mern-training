@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import request from './services/request';
+import request from '../services/request';
 
 export default function SimpleLoginForm(){
     const [data,setData] = useState({})

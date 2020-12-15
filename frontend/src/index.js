@@ -4,12 +4,14 @@ import './index.css';
 import App from './App';
 import SimpleLoginForm from './class3';
 import SimpleForm from './class3/SimpleForms';
+import FetchApiExample from './class4';
+
 
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <SimpleForm />
+    <FetchApiExample />
   </React.StrictMode>,
   document.getElementById('root')
 );

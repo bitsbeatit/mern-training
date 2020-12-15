@@ -29,19 +29,19 @@ export default function SimpleForm(){
     return(<div style={{margin:"200px 500px"}}>
         <form>
             <label htmlFor="name">Name</label>
-            <input name="name" onBlur={handleClick} value={state.name||''} onChange={handleChange} id="name"/>
+            <input name="name" value={state.name||''} onChange={handleChange} id="name"/>
             <br />
             <span style={{color:"red"}}>{error.name}</span>
             <br />
 
             <label htmlFor="address">Address</label>
-            <input name="address" onBlur={handleClick} value={state.address||''} onChange={handleChange} id="address"/>
+            <input name="address" value={state.address||''} onChange={handleChange} id="address"/>
             <br />
             <span  style={{color:"red"}}>{error.address}</span>
             <br />
 
             <label htmlFor="mobileNumber">Mobile Number</label>
-            <input name="mobileNumber" onBlur={handleClick} value={state.mobileNumber||''} onChange={handleChange} id="mobileNumber"/>
+            <input name="mobileNumber" value={state.mobileNumber||''} onChange={handleChange} id="mobileNumber"/>
             <br />
             <span  style={{color:"red"}}>{error.mobileNumber}</span>
             <br />
