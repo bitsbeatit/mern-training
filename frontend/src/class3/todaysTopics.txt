@@ -1,0 +1,7 @@
+Today Topics
+
+1> Creating Simple Forms.
+2> Populate values in Forms.
+3> Dynamic Forms.
+4> Validate Forms and show validation errors.
+5> Introduction to fetch api for api call.
