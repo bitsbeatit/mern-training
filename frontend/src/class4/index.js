@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import request from '../services/request';
-import HooksExample from "./lifecycleHookExample";
+// import HooksExample from "./lifecycleHookExample";
 
 export default function FetchApiExample(props){
     const [state,setState] = useState({});
@@ -109,7 +109,7 @@ export default function FetchApiExample(props){
             <button onClick={(e)=>selectPost(e,each)}>Select</button>
         </li>)}
         </ul>
-        <HooksExample name={state.title} address="test" />
+        {/* <HooksExample name={state.title} address="test" /> */}
     </div>)
 }
 

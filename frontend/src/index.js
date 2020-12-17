@@ -5,13 +5,16 @@ import App from './App';
 import SimpleLoginForm from './class3';
 import SimpleForm from './class3/SimpleForms';
 import FetchApiExample from './class4';
+import BasicRouting from './class6/basicRoute';
+import NestedRouting from './class6/nestedRouting';
+
 
 
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <FetchApiExample />
+    <NestedRouting />
   </React.StrictMode>,
   document.getElementById('root')
 );
