@@ -6,9 +6,9 @@ const morganLogger = require('morgan');
 const app = express();
 const router = require('./lib/routes');
 
-// const cors = require('cors');
-// app.use(cors());
-// app.options('*', cors());
+const cors = require('cors');
+app.use(cors());
+app.options('*', cors());
 
 app.use(morganLogger('dev'));
 
